@@ -2,10 +2,7 @@
 
 set -e
 
-##
-# The main execution
-#
-do_restoresite
+
 
 ##
 # The command line bootstrap
@@ -72,9 +69,17 @@ check_first_parameter() {
 
 }
 
+##
+# Unpack the parameter provided
+#
 unpack_packfile() {
     date=$(date +%Y%m%d%H%M%S)
     tmp_dir=restoresite_tmp_$date
     mkdir $tmp_dir
     tar xvzf $1 -C $tmp_dir
 }
+
+##
+# The main execution
+#
+do_restoresite
