@@ -22,15 +22,15 @@ do_restoresite() {
 #
 check_for_dependencies() {
 
-    if ! which ask_shell > /dev/null 2>&1; then
+    if ! which askshell > /dev/null 2>&1; then
         can_download=$(check_if_can_download_dependencies)
         if [ $can_download -eq 1 ]; then
-            downloadfromuri https://raw.githubusercontent.com/danilocgsilva/restoresite/master/programfiles/askshell
+            installfromuri https://raw.githubusercontent.com/danilocgsilva/ask_shell/master/programfiles/askshell
             echo askshell utility just installed in the system.
         else
             echo Can\'t continue the script. The askshell utility is part of the prerequisites and is not installed in the system.
             echo You can do:
-            echo 1. (Preferaly) Download the https://raw.githubusercontent.com/danilocgsilva/install_from_uri/master/programfiles/installfromuri, put in the /usr/local/bin and assign execution permission. So you can solve the current dependency and all other eventually will exists from some another author utility.
+            echo 1. \(Preferaly\) Download the https://raw.githubusercontent.com/danilocgsilva/install_from_uri/master/programfiles/installfromuri, put in the /usr/local/bin and assign execution permission. So you can solve the current dependency and all other eventually will exists from some another author utility.
             echo 2. Download the https://raw.githubusercontent.com/danilocgsilva/ask_shell/master/programfiles/askshell, put in the /usr/local/bin and assign execution permission.
             exit
         fi
