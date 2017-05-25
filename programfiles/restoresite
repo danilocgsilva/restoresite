@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 ##
 # The main execution
 #
@@ -9,7 +11,13 @@ do_restoresite
 # The command line bootstrap
 #
 do_restoresite() {
+
     check_for_dependencies
+
+    check_first_parameter
+
+    unpack_packfile $1
+
 }
 
 ##
@@ -21,6 +29,7 @@ check_for_dependencies() {
         can_download=$(check_if_can_download_dependencies)
         if [ $can_download -eq 1 ]; then
             downloadfromuri https://raw.githubusercontent.com/danilocgsilva/restoresite/master/programfiles/askshell
+            echo askshell utility just installed in the system.
         else
             echo Can\'t continue the script. The askshell utility is part of the prerequisites and is not installed in the system.
             echo You can do:
@@ -44,4 +53,28 @@ check_if_can_download_dependencies() {
     else
         echo 0
     fi
+}
+
+##
+# Checks for the first parameter
+#
+check_first_parameter() {
+
+    if [ -z $1 ]; then
+        echo You need provides the first parameter to be the pack source.
+        exit
+    fi
+
+    if [ ! -f $1 ]; then
+        echo The parameter provided seems to be not any file.
+        exit
+    fi
+
+}
+
+unpack_packfile() {
+    date=$(date +%Y%m%d%H%M%S)
+    tmp_dir=restoresite_tmp_$date
+    mkdir $tmp_dir
+    tar xvzf $1 -C $tmp_dir
 }
