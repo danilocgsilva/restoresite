@@ -11,6 +11,8 @@ do_restoresite() {
 
     check_first_parameter "$1"
 
+    echo First parameter checked
+
     unpack_packfile "$1"
 
 }
@@ -55,8 +57,6 @@ check_if_can_download_dependencies() {
 #
 check_first_parameter() {
 
-    echo You provided "$1"
-
     if [ -z "$1" ]; then
         echo You need provides the first parameter to be the pack source.
         exit
@@ -74,12 +74,12 @@ check_first_parameter() {
 #
 unpack_packfile() {
     date=$(date +%Y%m%d%H%M%S)
-    tmp_dir=restoresite_tmp_$date
+    tmp_dir=/tmp/restoresite_tmp_$date
     mkdir $tmp_dir
-    tar xvzf $1 -C $tmp_dir
+    tar xvzf "$1" -C $tmp_dir
 }
 
 ##
 # The main execution
 #
-do_restoresite $1
+do_restoresite "$1"
