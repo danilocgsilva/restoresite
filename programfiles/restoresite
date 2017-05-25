@@ -2,8 +2,6 @@
 
 set -e
 
-
-
 ##
 # The command line bootstrap
 #
@@ -11,9 +9,9 @@ do_restoresite() {
 
     check_for_dependencies
 
-    check_first_parameter
+    check_first_parameter "$1"
 
-    unpack_packfile $1
+    unpack_packfile "$1"
 
 }
 
@@ -57,13 +55,15 @@ check_if_can_download_dependencies() {
 #
 check_first_parameter() {
 
-    if [ -z $1 ]; then
+    echo You provided "$1"
+
+    if [ -z "$1" ]; then
         echo You need provides the first parameter to be the pack source.
         exit
     fi
 
-    if [ ! -f $1 ]; then
-        echo The parameter provided seems to be not any file.
+    if [ ! -f "$1" ]; then
+        echo The parameter provided seems to be not any file. It must be the pack source.
         exit
     fi
 
@@ -82,4 +82,4 @@ unpack_packfile() {
 ##
 # The main execution
 #
-do_restoresite
+do_restoresite $1
