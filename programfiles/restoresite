@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 ##
 # The command line bootstrap
 #
@@ -11,9 +9,9 @@ do_restoresite() {
 
     check_first_parameter "$1"
 
-    echo First parameter checked
-
     unpack_packfile "$1"
+
+    check_for_unziped_files
 
 }
 
@@ -77,6 +75,22 @@ unpack_packfile() {
     tmp_dir=/tmp/restoresite_tmp_$date
     mkdir $tmp_dir
     tar xvzf "$1" -C $tmp_dir
+}
+
+##
+# Check for validity from the unziped contents
+#
+check_for_unziped_files() {
+    ls $tmp_dir
+    entry_count=$(ls $tmp_dir | wc -l)
+
+    if [ $entry_count -ne 1 ]; then
+        echo There\'s something wrong from the unziped pack: more entries allowed in the unziped folder. Only one entry allowed in the root resulting unziped pack.
+        echo Cleaning...
+        rm -rf $tmp_dir
+        exit
+    fi
+
 }
 
 ##
