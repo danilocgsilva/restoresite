@@ -7,12 +7,22 @@ do_restoresite() {
 
     check_for_dependencies
 
-    check_first_parameter "$1"
+    # Loads the function utility for askshell
+    source $(which askshell)
 
-    unpack_packfile "$1"
+    make_questions
+
+    unpack_packfile
 
     check_for_unziped_files
 
+}
+
+##
+# Inquires the user for the basic input
+#
+make_questions() {
+    askshell_notempty "Please, provides the path for the pack file: " "pack_path"
 }
 
 ##
@@ -26,6 +36,7 @@ check_for_dependencies() {
             installfromuri https://raw.githubusercontent.com/danilocgsilva/ask_shell/master/programfiles/askshell
             echo askshell utility just installed in the system.
         else
+            # Exits the application
             echo Can\'t continue the script. The askshell utility is part of the prerequisites and is not installed in the system.
             echo You can do:
             echo 1. \(Preferaly\) Download the https://raw.githubusercontent.com/danilocgsilva/install_from_uri/master/programfiles/installfromuri, put in the /usr/local/bin and assign execution permission. So you can solve the current dependency and all other eventually will exists from some another author utility.
@@ -74,7 +85,7 @@ unpack_packfile() {
     date=$(date +%Y%m%d%H%M%S)
     tmp_dir=/tmp/restoresite_tmp_$date
     mkdir $tmp_dir
-    tar xvzf "$1" -C $tmp_dir
+    tar xvzf "$path_path" -C $tmp_dir
 }
 
 ##
