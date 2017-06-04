@@ -3,6 +3,8 @@
 ##
 # The command line bootstrap
 #
+pack_file=""
+
 do_restoresite() {
 
     check_for_dependencies
@@ -22,7 +24,8 @@ do_restoresite() {
 # Inquires the user for the basic input
 #
 make_questions() {
-    askshell_notempty "Please, provides the path for the pack file: " "pack_path"
+    askshell_file "Please, provides the path for the pack file: " pack_path
+    echo Pack file: $pack_path
 }
 
 ##
@@ -85,6 +88,7 @@ unpack_packfile() {
     date=$(date +%Y%m%d%H%M%S)
     tmp_dir=/tmp/restoresite_tmp_$date
     mkdir $tmp_dir
+    echo \$path_path is: "$path_path"
     tar xvzf "$path_path" -C $tmp_dir
 }
 
