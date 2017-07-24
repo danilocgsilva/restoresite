@@ -25,7 +25,7 @@ do_restoresite() {
 #
 make_questions() {
     askshell_file "Please, provides the path for the pack file: " pack_path
-    echo Pack file: $pack_path
+    askshell_folder "Please, provides the path for the local instalation site: " localfolderpath
 }
 
 ##
@@ -88,7 +88,6 @@ unpack_packfile() {
     date=$(date +%Y%m%d%H%M%S)
     tmp_dir=/tmp/restoresite_tmp_$date
     mkdir $tmp_dir
-    echo \$pack_path is: "$pack_path"
     tar xvzf "$pack_path" -C $tmp_dir
 }
 
