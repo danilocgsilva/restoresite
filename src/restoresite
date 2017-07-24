@@ -25,7 +25,7 @@ do_restoresite() {
 #
 make_questions() {
     askshell_file "Please, provides the path for the pack file: " pack_path
-    askshell_folder "Please, provides the path for the local instalation site: " localfolderpath
+    askshell_directory "Please, provides the path for the local instalation site: " localfolderpath
 }
 
 ##
