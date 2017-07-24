@@ -88,8 +88,8 @@ unpack_packfile() {
     date=$(date +%Y%m%d%H%M%S)
     tmp_dir=/tmp/restoresite_tmp_$date
     mkdir $tmp_dir
-    echo \$path_path is: "$path_path"
-    tar xvzf "$path_path" -C $tmp_dir
+    echo \$pack_path is: "$pack_path"
+    tar xvzf "$pack_path" -C $tmp_dir
 }
 
 ##
